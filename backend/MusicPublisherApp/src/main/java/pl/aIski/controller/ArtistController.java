@@ -1,6 +1,7 @@
 package pl.aIski.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.aIski.dto.ArtistCreationRequest;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/artist")
 @AllArgsConstructor
+@Slf4j
 public class ArtistController {
     private final ArtistServiceFacade artistService;
 
@@ -24,6 +26,7 @@ public class ArtistController {
 
     @PostMapping("/create")
     public ResponseEntity<Void> createArtist(@RequestBody ArtistCreationRequest artistCreationRequest) {
+        log.info("Inside createArtist() of ArtistController");
         ArtistDTO artist = artistService.createArtist(artistCreationRequest);
         return artist != null ? ResponseEntity.ok().build() : ResponseEntity.internalServerError().build();
     }

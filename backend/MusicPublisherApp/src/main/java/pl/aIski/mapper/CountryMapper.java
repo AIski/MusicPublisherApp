@@ -8,5 +8,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CountryMapper {
+    CountryDTO toCountryDTO(Country country);
     List<CountryDTO> toCountriesDTOs(List<Country> countries);
 }

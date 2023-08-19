@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/api/v1/album")
 @AllArgsConstructor
 public class AlbumController {
-
     private final AlbumServiceFacade albumService;
 
     @GetMapping()

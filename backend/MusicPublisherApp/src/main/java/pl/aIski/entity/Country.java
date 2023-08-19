@@ -10,7 +10,9 @@ import lombok.Data;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
+
+    @Column(name="NAME")
     private String name;
 }

@@ -1,6 +1,7 @@
 package pl.aIski.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.aIski.dto.ArtistCreationRequest;
 import pl.aIski.dto.ArtistDTO;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ArtistServiceFacadeImpl implements ArtistServiceFacade{
     private final ArtistService artistService;
     private final ArtistMapper mapper;
@@ -18,6 +20,7 @@ public class ArtistServiceFacadeImpl implements ArtistServiceFacade{
     @Override
     public List<ArtistDTO> getAll() {
         List<Artist> artists = artistService.getAll();
+        log.info(artists.toString());
         return mapper.artistsToArtistsDtos(artists);
     }
 
