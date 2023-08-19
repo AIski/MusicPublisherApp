@@ -1,0 +1,2 @@
+# MusicPublisherApp
+Java, Angular, Springboot
