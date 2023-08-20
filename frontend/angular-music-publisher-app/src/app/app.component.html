@@ -1,16 +1,44 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<div class="page-container d-flex align-items-center justify-content-center">
+  <div class="app-container container-lg flex-column d-flex mt-5 mb-5">
+
+    <header class="header sticky-top ps-2 pe-3">
+      <div class="container-fluid border border-3 rounded px-3 mx-2 -0">
+        <div class="row justify-content-between pb-0 ">
+          <div class="col text-center my-1 px-0">
+            <a routerLink="/home" class="btn">
+              <h6 class="mb-0"><b>Home</b></h6>
+            </a>
+          </div>
+          <div class="col text-center my-1 px-0 border-l">
+            <a routerLink="/artist" class="btn">
+              <h6 class="mb-0"><b>Create Artist</b></h6>
+            </a>
+          </div>
+          <div class="col text-center my-1 px-0 border-l">
+            <a routerLink="/album" class="btn">
+              <h6 class="mb-0"><b>Create Album</b></h6>
+            </a>
+          </div>
+          <div class="col text-center my-1 px-0 border-l">
+            <a routerLink="/offer" class="btn">
+              <h6 class="mb-0"><b>Offer</b></h6>
+            </a>
+          </div>
+          <div class="col text-center my-1 px-0 border-l">
+            <a routerLink="/about-me" class="btn">
+              <h6 class="mb-0"><b>About Me</b></h6>
+            </a>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </header>
+
+
+    <div class="main-container">
       <router-outlet></router-outlet>
     </div>
-    <div class="col-md-4">
-      <div class="header">
-        <button routerLink="/about-me" class="btn btn-primary">About Me</button>
-        <button routerLink="/album" class="btn btn-primary">Album</button>
-        <button routerLink="/artist" class="btn btn-primary">Artist</button>
-        <button routerLink="/home" class="btn btn-primary">Home</button>
-        <button routerLink="/offer" class="btn btn-primary">Offer</button>
-      </div>
-    </div>
+
   </div>
-</div>

@@ -20,7 +20,6 @@ public class ArtistServiceFacadeImpl implements ArtistServiceFacade{
     @Override
     public List<ArtistDTO> getAll() {
         List<Artist> artists = artistService.getAll();
-        log.info(artists.toString());
         return mapper.artistsToArtistsDtos(artists);
     }
 

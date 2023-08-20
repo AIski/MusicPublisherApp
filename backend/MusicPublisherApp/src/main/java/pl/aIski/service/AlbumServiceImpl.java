@@ -9,8 +9,6 @@ import pl.aIski.dto.SongCreationRequest;
 import pl.aIski.entity.Album;
 import pl.aIski.entity.Artist;
 import pl.aIski.entity.Song;
-import pl.aIski.mapper.AlbumMapper;
-import pl.aIski.mapper.SongMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +19,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AlbumServiceImpl implements AlbumService {
     private final AlbumRepository albumRepository;
-    private final AlbumMapper mapper;
-    private final SongMapper songMapper;
 
     @Override
     public List<Album> getAll() {
@@ -42,7 +38,6 @@ public class AlbumServiceImpl implements AlbumService {
 
         setAlbumSongsRelations(album, songs);
         log.info(songs.toString());
-//        saveSongs(songs);
         log.info("Creating album: " + album.toString());
 
         albumRepository.save(album);
@@ -50,17 +45,16 @@ public class AlbumServiceImpl implements AlbumService {
         return album;
     }
 
-    private void saveSongs(List<Song> songs) {
-    }
 
     private List<Song> processSongCreationRequests(List<SongCreationRequest> songCreationRequests) {
         List<Song> createdSongs = songCreationRequests.stream()
                 .map(this::createSongFromRequest)
                 .collect(Collectors.toList());
-       return createdSongs;
+        return createdSongs;
     }
 
     private Song createSongFromRequest(SongCreationRequest songCreationRequest) {
+        log.info("Creating song from request: " + songCreationRequest.toString());
         Song song = new Song();
         song.setName(songCreationRequest.getName());
         List<Artist> artists = songCreationRequest.getArtistsIds()
@@ -79,7 +73,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     private void setAlbumSongsRelations(Album album, List<Song> songs) {
         album.setSongs(songs);
-        for(Song song: songs){
+        for (Song song : songs) {
             song.setAlbum(album);
         }
     }

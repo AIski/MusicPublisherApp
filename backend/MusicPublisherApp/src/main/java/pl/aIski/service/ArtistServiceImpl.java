@@ -9,7 +9,9 @@ import pl.aIski.entity.Artist;
 import pl.aIski.entity.Country;
 import pl.aIski.mapper.ArtistMapper;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -20,8 +22,13 @@ public class ArtistServiceImpl implements  ArtistService{
 
     @Override
     public List<Artist> getAll() {
+
         log.info("Getting All Artists from the DB.");
-        return artistRepository.findAll();
+        var artists = artistRepository.findAll();
+        List<Artist> sortedArtists= artists.stream()
+                .sorted(Comparator.comparing(Artist::getLastName))
+                .collect(Collectors.toList());
+        return sortedArtists;
     }
 
     @Override

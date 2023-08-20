@@ -1,1 +1,5 @@
 @import '~bootstrap/dist/css/bootstrap.css';
+
+body, app-root, app-root * {
+    font-family: 'Roboto', sans-serif;
+  }

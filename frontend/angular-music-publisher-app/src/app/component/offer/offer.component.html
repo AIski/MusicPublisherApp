@@ -1,6 +1,11 @@
 <h1>Show Albums Component</h1>
 <div *ngIf="displayComponent; else loading">
   <h2>List of Albums</h2>
+  Offer of the record company: List of all albums, with: 
+                -number of songs on album,
+                -suggested price
+                - when clicked on each album, new component pops up, showign album details (album title, songs, artists, their countries, ages, music types, suggested album price)
+                
   <ul>
     <li *ngFor="let album of albums">
       ID: {{ album.id }}, Name: {{ album.name }}

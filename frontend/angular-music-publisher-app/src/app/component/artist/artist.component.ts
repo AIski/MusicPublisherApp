@@ -52,8 +52,8 @@ export class ArtistComponent implements OnInit {
 
   async onSubmit(): Promise<void> {
     if (this.artistForm.valid) {
-      const artistCreationRequest= this.artistForm.value;
-  
+      const artistCreationRequest = this.artistForm.value;
+
 
       try {
         const response = await this.artistService.createArtist(artistCreationRequest);
@@ -62,8 +62,8 @@ export class ArtistComponent implements OnInit {
           this.artistForm.reset();
         }
       } catch (error) {
-        this.errorMessage = 'Error creating artist: '+ JSON.stringify(error);
-        console.error('Error creating artist: '+ JSON.stringify(error));
+        this.errorMessage = 'Error creating artist: ' + JSON.stringify(error);
+        console.error('Error creating artist: ' + JSON.stringify(error));
       }
     }
   }

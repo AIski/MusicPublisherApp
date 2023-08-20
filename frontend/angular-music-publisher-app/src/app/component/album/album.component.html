@@ -1,38 +1,80 @@
 <div class="container mt-5">
-  <h1 class="mb-4">Create Album Component</h1>
   <div *ngIf="displayComponent">
     <div *ngIf="displayComponent; else loading">
-      <div class="card p-4 border border-3 border-dark rounded">
+      <div class="p-4 text-center">
         <h2 class="mb-4">Create New Album</h2>
         <form [formGroup]="albumForm" (ngSubmit)="onSubmit()">
-          <div class="mb-3">
-            <label for="name" class="form-label">Album Name:</label>
-            <input type="text" id="name" class="form-control" formControlName="name">
-          </div>
-          <div formArrayName="songs">
-            <div *ngFor="let songCtrl of getSongsControls(); let i = index">
-              <div class="border p-3 my-2 border-2 border-grey rounded">
-                <div [formGroupName]="i">
-                  <label for="songName" class="form-label">Song Name:</label>
-                  <input type="text" id="songName" class="form-control" formControlName="name">
-          
-                  <label for="artistIds" class="form-label">Select Artists:</label>
-                  <select id="artistIds" class="form-select" formControlName="artistIds" multiple>
-                    <option *ngFor="let artist of artists" [value]="artist.id">{{ artist.firstName }}</option>
-                  </select>
-                  
-                  <!-- Remove Song Button -->
-                  <button type="button" class="btn btn-danger mt-2" (click)="removeSong(i)">-</button>
-                </div>
+          <!-- Album Title -->
+          <div class="border py-3 px-4 my-2 border-4 boder-grey bg-light rounded">
+            <div class="row justify-content-center">
+              <div class="col-8 mb-3 pb-3">
+                <h4>Album title:</h4>
+                <input type="text" id="name" class="form-control text-center" formControlName="name">
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary mt-3" (click)="addSong()">+</button>
-          <div class="mb-3">
-            <label for="suggestedPrice" class="form-label">Suggested Price:</label>
-            <input type="number" id="suggestedPrice" class="form-control" formControlName="suggestedPrice">
+
+          <!-- Songs -->
+          <div class="border py-2 px-2 my-2 border-4 boder-grey bg-white rounded">
+            <div formArrayName="songs" class="px-3 pt-1 my-2">
+              <h4>Album Songs:</h4>
+              <div class="songs-container border py-3 px-4 my-2 border-4 boder-grey bg-light rounded">
+                <div *ngFor="let songCtrl of getSongsControls(); let i = index">
+                  <div class="row align-items-center">
+                    <!-- Song Info -->
+                    <div class="col-11 border py-3 px-4 my-2 border-4 boder-grey bg-white rounded">
+                      <div [formGroupName]="i">
+                        <div class="row align-items-center">
+                          <div class="row">
+                            <div class="col-12 text-center pb-0 mb-0">
+                              <h5><u>{{i+1}}. Album's song</u></h5>
+                            </div>
+                            <div class="col pb-2">
+                              <div class="row">
+                                <label for="songName" class="form-label col-auto pt-2">Song title:</label>
+                                <div class="col-sm">
+                                  <input type="text" id="songName" class="form-control text-center"
+                                    formControlName="name">
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Song Artists -->
+                            <div class="">
+                              <h6>Song artists</h6>
+                              <select class="form-select" multiple formControlName="artistsIds">
+                                <option *ngFor="let artist of artists" [value]="artist.id">{{ artist.firstName }}, {{ artist.lastName }}, {{ artist.countryName }}</option>
+                              </select>                         
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Remove Song Button -->
+                    <div class="col-1">
+                      <button type="button" class="btn btn-danger mt-2" (click)="removeSong(i)">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-secondary mt-3" (click)="addSong()">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
           </div>
-          <button type="submit" class="btn btn-primary mt-3">Save Album</button>
+
+          <!-- Suggested Price -->
+          <div class="row px-3 justify-content-center">
+            <div class="col-auto mb-3 border pt-2 pb-3 px-3 my-2 border-4 boder-grey bg-white rounded">
+              <label for="suggestedPrice" class="form-label">Suggested Price:</label>
+              <input type="number" id="suggestedPrice" class="form-control text-center"
+                formControlName="suggestedPrice">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-secondary px-3 mt-3">Save Album</button>
         </form>
       </div>
       <div *ngIf="successMessage" class="alert alert-success mt-3">
@@ -43,6 +85,7 @@
       </div>
     </div>
   </div>
+
   <ng-template #loading>
     <div class="d-flex justify-content-center align-items-center">
       <div class="spinner-border text-success" role="status">
@@ -50,13 +93,4 @@
       </div>
     </div>
   </ng-template>
-
-  <div *ngIf="displayComponent; else loading">
-    <h2>List of Artists</h2>
-    <ul>
-      <li *ngFor="let artist of artists">
-        ID: {{ artist.id }}, Name: {{ artist.firstName }}
-      </li>
-    </ul>
-  </div>
 </div>

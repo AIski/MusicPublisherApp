@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Artist } from 'src/app/common/artist';
+import { AlbumCreationRequest } from 'src/app/common/request/album-creation-request';
 import { AlbumService } from 'src/app/service/album.service';
 import { ArtistService } from 'src/app/service/artist.service';
 
@@ -20,12 +21,14 @@ export class AlbumComponent implements OnInit {
   constructor(
     private artistService: ArtistService,
     private albumService: AlbumService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cdRef: ChangeDetectorRef
   ) { }
 
   async ngOnInit(): Promise<void> {
     await this.getArtists();
     this.createAlbumForm();
+    // this.updateArtistsForm(0);
     this.displayComponent = true;
   }
 
@@ -39,8 +42,14 @@ export class AlbumComponent implements OnInit {
 
   async onSubmit(): Promise<void> {
     if (this.albumForm.valid) {
-      const albumCreationRequest = this.albumForm.value;
-
+      const albumCreationRequest: AlbumCreationRequest = {
+        name: this.albumForm.value.name,
+        songs: this.albumForm.value.songs.map((song: any) => ({
+          name: song.name,
+          artistsIds: song.artistsIds.map((id: number) => +id)
+        })),
+        suggestedPrice: this.albumForm.value.suggestedPrice
+      };
       try {
         const response = await this.albumService.createAlbum(albumCreationRequest);
         if (response.status === 200) {
@@ -59,31 +68,39 @@ export class AlbumComponent implements OnInit {
       name: ['', Validators.required],
       suggestedPrice: [0, Validators.required],
       songs: this.formBuilder.array([
-        this.createSongFormGroup(),
-        this.createSongFormGroup(),
-      ])
+        this.createSongFormGroup()
+      ]),
     });
   }
 
-  createSongFormGroup(): FormGroup {
+  private createSongFormGroup(): FormGroup {
     return this.formBuilder.group({
       name: ['', Validators.required],
-      artistIds: [[], Validators.required],
+      artistsIds: [[]],
     });
   }
 
-  getSongsControls(): AbstractControl[] {
-    return (this.albumForm.get('songs') as FormArray).controls;
-  }
+  // private createSongFormGroup(): FormGroup {
+  //   return this.formBuilder.group({
+  //     name: ['', Validators.required],
+  //     artistsIds: [[]], // Initialize as empty array
+  //   });
+  // }
 
   addSong(): void {
     const songsArray = this.albumForm.get('songs') as FormArray;
     songsArray.push(this.createSongFormGroup());
+    this.cdRef.detectChanges();
   }
 
   removeSong(index: number): void {
     const songsArray = this.albumForm.get('songs') as FormArray;
     songsArray.removeAt(index);
   }
+
+  getSongsControls(): AbstractControl[] {
+    return (this.albumForm.get('songs') as FormArray).controls;
+  }
+
 
 }
