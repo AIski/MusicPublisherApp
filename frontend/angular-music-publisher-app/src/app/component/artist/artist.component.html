@@ -1,17 +1,52 @@
-<h1>Artist Component</h1>
-<div *ngIf="displayComponent; else loading">
-  <h2>List of Countries</h2>
-  <ul>
-    <li *ngFor="let country of countries">
-      ID: {{ country.id }}, Name: {{ country.name }}
-    </li>
-  </ul>
-</div>
+<div class="container mt-5">
+  <h1 class="mb-4">Artist Component</h1>
+  <div *ngIf="displayComponent">
+    <div *ngIf="displayComponent; else loading">
+      <div class="card p-4 border border-3 border-dark rounded">
+        <h2 class="mb-4">Create New Artist</h2>
 
-<ng-template #loading>
-  <div class="d-flex justify-content-center align-items-center">
-    <div class="spinner-border text-success" role="status">
-      <span class="sr-only">Loading...</span>
+        <form [formGroup]="artistForm" (ngSubmit)="onSubmit()">
+          <div class="border p-3 my-2 border-2 boder-grey rounded">
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name:</label>
+              <input type="text" id="firstName" class="form-control" formControlName="firstName">
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name:</label>
+              <input type="text" id="lastName" class="form-control" formControlName="lastName">
+            </div>
+            <div class="mb-3">
+              <label for="musicType" class="form-label">Music Type:</label>
+              <input type="text" id="musicType" class="form-control" formControlName="musicType">
+            </div>
+            <div class="mb-3">
+              <label for="age" class="form-label">Age:</label>
+              <input type="number" id="age" class="form-control" formControlName="age">
+            </div>
+            <div class="mb-1">
+              <label for="country" class="form-label">Country:</label>
+              <select id="country" class="form-select" formControlName="country">
+                <option *ngFor="let country of countries" [ngValue]="country">{{ country.name }}</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Artist</button>
+        </form>
+      </div>
+      <div *ngIf="successMessage" class="alert alert-success mt-3">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
     </div>
   </div>
-</ng-template>
+
+  <ng-template #loading>
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="spinner-border text-success" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
+</div>

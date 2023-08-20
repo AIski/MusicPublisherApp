@@ -26,6 +26,7 @@ public class ArtistServiceImpl implements  ArtistService{
 
     @Override
     public Artist createArtist(ArtistCreationRequest artistCreationRequest) {
+        log.info("Creating new artist from artistCreationRequest: "+artistCreationRequest.toString());
         Artist artist = new Artist();
         fetchArtistDetailsFromRequest(artistCreationRequest, artist);
         log.info("Creating artist: "+ artist.toString());

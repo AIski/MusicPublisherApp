@@ -12,6 +12,7 @@ import { AlbumService } from './service/album.service';
 import { ArtistService } from './service/artist.service';
 import { CountryService } from './service/country.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'album', component: AlbumComponent },
   { path: 'artist', component: ArtistComponent },
   { path: 'offer', component: OfferComponent },
+  { path: 'home', component: HomeComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' }, 
   { path: '**', redirectTo: 'home' }
 ];
@@ -26,6 +28,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    AlbumComponent,
     ArtistComponent,
     HomeComponent,
     OfferComponent,
@@ -33,6 +36,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [

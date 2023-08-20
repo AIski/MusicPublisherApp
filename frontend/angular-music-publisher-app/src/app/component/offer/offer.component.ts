@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Album } from 'src/app/common/album';
+import { AlbumService } from 'src/app/service/album.service';
 
 @Component({
   selector: 'app-offer',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfferComponent implements OnInit {
 
-  constructor() { }
+  albums: Album[] = [];
+  displayComponent: Boolean = false;
 
-  ngOnInit(): void {
+  constructor(
+private albumService: AlbumService,
+  ) { }
+
+  async ngOnInit(): Promise<void> {
+    await this.getAlbums();
+    this.displayComponent = true;
   }
 
+  async getAlbums(): Promise<void> {
+    try {
+      this.albums = (await this.albumService.getAlbums()).body!;
+    } catch (error) {
+      console.error('Error fetching albums:', error);
+    }
+  }
 }

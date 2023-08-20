@@ -1,1 +1,62 @@
-<p>album works!</p>
+<div class="container mt-5">
+  <h1 class="mb-4">Create Album Component</h1>
+  <div *ngIf="displayComponent">
+    <div *ngIf="displayComponent; else loading">
+      <div class="card p-4 border border-3 border-dark rounded">
+        <h2 class="mb-4">Create New Album</h2>
+        <form [formGroup]="albumForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Album Name:</label>
+            <input type="text" id="name" class="form-control" formControlName="name">
+          </div>
+          <div formArrayName="songs">
+            <div *ngFor="let songCtrl of getSongsControls(); let i = index">
+              <div class="border p-3 my-2 border-2 border-grey rounded">
+                <div [formGroupName]="i">
+                  <label for="songName" class="form-label">Song Name:</label>
+                  <input type="text" id="songName" class="form-control" formControlName="name">
+          
+                  <label for="artistIds" class="form-label">Select Artists:</label>
+                  <select id="artistIds" class="form-select" formControlName="artistIds" multiple>
+                    <option *ngFor="let artist of artists" [value]="artist.id">{{ artist.firstName }}</option>
+                  </select>
+                  
+                  <!-- Remove Song Button -->
+                  <button type="button" class="btn btn-danger mt-2" (click)="removeSong(i)">-</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary mt-3" (click)="addSong()">+</button>
+          <div class="mb-3">
+            <label for="suggestedPrice" class="form-label">Suggested Price:</label>
+            <input type="number" id="suggestedPrice" class="form-control" formControlName="suggestedPrice">
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Save Album</button>
+        </form>
+      </div>
+      <div *ngIf="successMessage" class="alert alert-success mt-3">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="spinner-border text-success" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
+
+  <div *ngIf="displayComponent; else loading">
+    <h2>List of Artists</h2>
+    <ul>
+      <li *ngFor="let artist of artists">
+        ID: {{ artist.id }}, Name: {{ artist.firstName }}
+      </li>
+    </ul>
+  </div>
+</div>
