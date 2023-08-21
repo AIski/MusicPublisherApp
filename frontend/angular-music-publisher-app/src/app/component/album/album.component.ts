@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormArray, AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { Artist } from 'src/app/common/artist';
 import { AlbumCreationRequest } from 'src/app/common/request/album-creation-request';
 import { AlbumService } from 'src/app/service/album.service';
@@ -16,19 +16,18 @@ export class AlbumComponent implements OnInit {
   albumForm!: FormGroup;
   successMessage!: string;
   errorMessage!: string;
-
+  submitted: Boolean = false;
 
   constructor(
     private artistService: ArtistService,
     private albumService: AlbumService,
     private formBuilder: FormBuilder,
     private cdRef: ChangeDetectorRef
-  ) { }
+  ) {}
 
   async ngOnInit(): Promise<void> {
     await this.getArtists();
     this.createAlbumForm();
-    // this.updateArtistsForm(0);
     this.displayComponent = true;
   }
 
@@ -41,6 +40,7 @@ export class AlbumComponent implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
+    this.submitted = true;
     if (this.albumForm.valid) {
       const albumCreationRequest: AlbumCreationRequest = {
         name: this.albumForm.value.name,
@@ -55,6 +55,7 @@ export class AlbumComponent implements OnInit {
         if (response.status === 200) {
           this.successMessage = 'Album saved to database successfully.';
           this.albumForm.reset();
+          this.submitted = false;
         }
       } catch (error) {
         this.errorMessage = 'Error creating Album: ' + JSON.stringify(error);
@@ -66,26 +67,17 @@ export class AlbumComponent implements OnInit {
   createAlbumForm(): void {
     this.albumForm = this.formBuilder.group({
       name: ['', Validators.required],
-      suggestedPrice: [0, Validators.required],
-      songs: this.formBuilder.array([
-        this.createSongFormGroup()
-      ]),
+      suggestedPrice: [, Validators.required],
+      songs: this.formBuilder.array([this.createSongFormGroup()], Validators.required)
     });
   }
 
   private createSongFormGroup(): FormGroup {
     return this.formBuilder.group({
       name: ['', Validators.required],
-      artistsIds: [[]],
+      artistsIds: [[], Validators.required]
     });
   }
-
-  // private createSongFormGroup(): FormGroup {
-  //   return this.formBuilder.group({
-  //     name: ['', Validators.required],
-  //     artistsIds: [[]], // Initialize as empty array
-  //   });
-  // }
 
   addSong(): void {
     const songsArray = this.albumForm.get('songs') as FormArray;
@@ -102,5 +94,7 @@ export class AlbumComponent implements OnInit {
     return (this.albumForm.get('songs') as FormArray).controls;
   }
 
-
+  isFormGroup(control: AbstractControl): control is FormGroup {
+    return control instanceof FormGroup;
+  }
 }

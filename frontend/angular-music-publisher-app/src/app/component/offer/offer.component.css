@@ -1,0 +1,39 @@
+.album-card {
+  border: 5px solid #ccc;
+  border-radius: 0.75rem;
+  padding: 15px 20px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.album-image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  opacity: 0.95;
+}
+
+.album-details {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.album-icon {
+  cursor: pointer;
+  color: rgb(0, 0, 0, 0.5);
+  transition: color 0.3s;
+}
+
+.gold-hover:hover {
+  color: goldenrod;
+}
+
+.album-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+

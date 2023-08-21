@@ -5,18 +5,13 @@
     justify-content: center;
     align-items: center;
   }
-  
-  .app-container {
-    /* max-width: 768px; */
-    color: black;
-  }
 
   .app-container {
-    /* min-height: calc(75vh); */
     color: black;
-    border: 5px solid rgb(0, 0, 0, 0.65);
-    border-radius: 2rem;
+    border: 5px solid #6C757D;
+    border-radius: 1.25rem;
     padding: 1rem;
+    max-width: 960px;
   }
 
   .component-container{
@@ -25,19 +20,26 @@
   }
 
   .page-container .app-container .header hr{
-    border: 3px solid black
+    border: 2px solid black;
+    margin-top: 1rem;
   }
 
   .page-container .app-container .main-container{
         margin-top: auto;
         margin-bottom: auto;
-        /* margin-bottom: auto; */
-        /* padding-top: 3rem; */
         padding-bottom: 2rem;
-
   }
 
   .border-l{
     border-left: 3px solid rgb(0, 0, 0, 0.2);
+    border-bottom: 3px solid rgb(0, 0, 0, 0.2);
+    border-top:3px solid rgb(0, 0, 0, 0.2);
   }
 
+  .border-r{
+    border-right: 3px solid rgb(0, 0, 0, 0.2);
+  }
+
+  .gold-hover:hover {
+    color: goldenrod;
+  }

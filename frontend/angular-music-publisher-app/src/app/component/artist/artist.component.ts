@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, firstValueFrom } from 'rxjs';
 import { Country } from 'src/app/common/country';
-import { ArtistCreationRequest } from 'src/app/common/request/artist-creation-request';
 import { ArtistService } from 'src/app/service/artist.service';
 import { CountryService } from 'src/app/service/country.service';
 
@@ -17,6 +15,7 @@ export class ArtistComponent implements OnInit {
   artistForm!: FormGroup;
   successMessage!: string;
   errorMessage!: string;
+  submitted: Boolean = false;
 
 
   constructor(
@@ -36,8 +35,8 @@ export class ArtistComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       musicType: ['', Validators.required],
-      age: [0, Validators.required],
-      country: [new Country(), Validators.required]
+      age: [, Validators.required],
+      country: [, Validators.required]
     });
   }
 
@@ -51,6 +50,7 @@ export class ArtistComponent implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
+    this.submitted = true;
     if (this.artistForm.valid) {
       const artistCreationRequest = this.artistForm.value;
 
@@ -60,6 +60,7 @@ export class ArtistComponent implements OnInit {
         if (response.status === 200) {
           this.successMessage = 'Artist saved to database successfully.';
           this.artistForm.reset();
+          this.submitted = false;
         }
       } catch (error) {
         this.errorMessage = 'Error creating artist: ' + JSON.stringify(error);

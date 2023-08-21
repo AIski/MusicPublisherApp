@@ -28,6 +28,9 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Album createAlbum(AlbumCreationRequest request) {
+        if (request.getSongs()==null || request.getSongs().isEmpty())  {
+            throw new IllegalArgumentException("Album Creation request Songs cannot be empty or null.");
+        }
         Album album = new Album();
         new ArrayList<>();
 

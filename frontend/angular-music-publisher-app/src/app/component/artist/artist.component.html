@@ -1,53 +1,80 @@
-<div class="container mt-5">
-  <div *ngIf="displayComponent">
-    <div *ngIf="displayComponent; else loading">
-      <div class="p-4 text-center">
-        <h2 class="mb-4">Create New Artist</h2>
+<body>
+  <div class="container mt-5 custom-max-width">
+    <div *ngIf="displayComponent">
+      <div *ngIf="displayComponent; else loading">
+        <div class="p-4 text-center">
+          <h2 class="mb-4">Create New Artist</h2>
 
-        <form [formGroup]="artistForm" (ngSubmit)="onSubmit()">
-          <div class="border py-3 px-4 my-2 border-4 boder-grey bg-light rounded">
-            <div class="row">
-              <div class="col-6 mb-3">
-                <label for="firstName" class="form-label">First Name:</label>
-                <input type="text" id="firstName" class="form-control" formControlName="firstName">
-              </div>
-              <div class="col-6 mb-3">
-                <label for="lastName" class="form-label">Last Name:</label>
-                <input type="text" id="lastName" class="form-control" formControlName="lastName">
-              </div>
-              <div class="col-5 mb-3">
-                <label for="musicType" class="form-label">Music Type:</label>
-                <input type="text" id="musicType" class="form-control" formControlName="musicType">
-              </div>
-              <div class="col-3 mb-3">
-                <label for="age" class="form-label">Age:</label>
-                <input type="number" id="age" class="form-control" formControlName="age">
-              </div>
-              <div class="col-4 mb-3">
-                <label for="country" class="form-label">Country:</label>
-                <select id="country" class="form-select" formControlName="country">
-                  <option *ngFor="let country of countries" [ngValue]="country">{{ country.name }}</option>
-                </select>
+          <form [formGroup]="artistForm" (ngSubmit)="onSubmit()">
+            <div class="border py-3 px-4 my-2 border-4 border-grey bg-light rounded">
+              <div class="row">
+                <div class="col-6 mb-3">
+                  <label for="firstName" class="form-label">First Name:</label>
+                  <input type="text" id="firstName" class="form-control" formControlName="firstName" 
+                  [class.is-invalid]="submitted && artistForm.controls['firstName'].invalid">
+                  <div class="invalid-feedback" *ngIf="submitted && artistForm.controls['firstName'].invalid">
+                    First name is required.
+                  </div>
+
+                </div>
+                <div class="col-6 mb-3">
+                  <label for="lastName" class="form-label">Last Name:</label>
+                  <input type="text" id="lastName" class="form-control" formControlName="lastName"
+                         [class.is-invalid]="submitted && artistForm.controls['lastName'].invalid">
+                  <div class="invalid-feedback" *ngIf="submitted && artistForm.controls['lastName'].invalid">
+                    Last name is required.
+                  </div>
+                </div>
+                <div class="col-5 mb-3">
+                  <label for="musicType" class="form-label">Music Type:</label>
+                  <input type="text" id="musicType" class="form-control" formControlName="musicType"
+                         [class.is-invalid]="submitted && artistForm.controls['musicType'].invalid">
+                  <div class="invalid-feedback" *ngIf="submitted && artistForm.controls['musicType'].invalid">
+                    Music type is required.
+                  </div>
+                </div>
+                <div class="col-3 mb-3">
+                  <label for="age" class="form-label">Age:</label>
+                  <input type="number" id="age" class="form-control" formControlName="age"
+                         [class.is-invalid]="submitted && artistForm.controls['age'].invalid">
+                  <div class="invalid-feedback" *ngIf="submitted && artistForm.controls['age'].invalid">
+                    Age is required.
+                  </div>
+                </div>
+                <div class="col-4 mb-3">
+                  <label for="country" class="form-label">Country:</label>
+                  <select id="country" class="form-select" formControlName="country"
+                          [class.is-invalid]="submitted && artistForm.controls['country'].invalid">
+                    <option *ngFor="let country of countries" [ngValue]="country">{{ country.name }}</option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="submitted && artistForm.controls['country'].invalid">
+                    Country is required.
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <button type="submit" class="btn btn-secondary px-3 mt-3">Save Artist</button>
-        </form>
-      </div>
-      <div *ngIf="successMessage" class="alert alert-success mt-3">
-        {{ successMessage }}
-      </div>
-      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
-        {{ errorMessage }}
+            <div *ngIf="successMessage" class="alert alert-success mt-3">
+              {{ successMessage }}
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+              {{ errorMessage }}
+            </div>
+            <button type="submit" class="btn btn-secondary px-3 mt-3">Save Artist</button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 
-  <ng-template #loading>
-    <div class="d-flex justify-content-center align-items-center">
-      <div class="spinner-border text-success" role="status">
-        <span class="sr-only">Loading...</span>
+    <ng-template #loading>
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="spinner-border text-success" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
-    </div>
-  </ng-template>
-</div>
+    </ng-template>
+  </div>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Bootstrap CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
