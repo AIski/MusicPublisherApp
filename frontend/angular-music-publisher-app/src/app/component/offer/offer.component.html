@@ -31,8 +31,20 @@
         </div>
       </div>
     </div>
+
+    <div class="text-center" *ngIf="albums.length === 0">
+        <div class="alert alert-warning mt-3" role="alert" *ngIf="albums.length === 0">
+          <h4 class="alert-heading">No Albums Available</h4>
+          <p>There are currently no albums to show.</p>
+        </div>
+    </div>
   </div>
 
+
+
+
+
+  <!-- Modal -->
   <ng-template #loading>
     <div class="d-flex justify-content-center align-items-center">
       <div class="spinner-border text-success" role="status">

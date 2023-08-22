@@ -26,7 +26,7 @@ public class ArtistServiceImpl implements  ArtistService{
         log.info("Getting All Artists from the DB.");
         var artists = artistRepository.findAll();
         List<Artist> sortedArtists= artists.stream()
-                .sorted(Comparator.comparing(Artist::getLastName))
+                .sorted(Comparator.comparing(Artist::getFirstName))
                 .collect(Collectors.toList());
         return sortedArtists;
     }
