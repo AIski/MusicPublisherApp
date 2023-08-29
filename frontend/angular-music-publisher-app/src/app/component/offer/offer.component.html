@@ -8,21 +8,23 @@
 
 <div class="offer-container text-center justify-content-center align-items-center pt-4 pb-5">
   <div *ngIf="displayComponent; else loading">
+    <!-- Albums -->
     <header class="pb-3">
       <h2>Our Albums</h2>
     </header>
 
     <div class="row">
       <div class="col-4" *ngFor="let album of albums; let i = index">
+        <!-- Single Album Content -->
         <div class="album-column">
           <div class="album-card">
             <img src="https://cdn.pixabay.com/photo/2018/02/12/16/35/phonograph-record-3148686_1280.jpg"
               alt="Album Cover" class="album-image">
             <div class="album-details">
+              <!-- Album Details -->
               <p class="album-name"><i><b>{{ album.name }}</b></i></p>
               <p class="album-info">{{ album.songs.length }} songs</p>
-              <span class="icon-button" data-bs-toggle="modal" data-bs-target="#albumModal"
-                (click)="openModal(album)">
+              <span class="icon-button" data-bs-toggle="modal" data-bs-target="#albumModal" (click)="openModal(album)">
                 <i class="fa-solid fa-eye fa-2x album-icon gold-hover"></i>
               </span>
               <p class="album-info pt-2 pb-0 mb-0">{{ album.suggestedPrice | number:'1.2-2' }} USD</p>
@@ -32,19 +34,16 @@
       </div>
     </div>
 
+    <!-- No Albums Found Message -->
     <div class="text-center" *ngIf="albums.length === 0">
-        <div class="alert alert-warning mt-3" role="alert" *ngIf="albums.length === 0">
-          <h4 class="alert-heading">No Albums Available</h4>
-          <p>There are currently no albums to show.</p>
-        </div>
+      <div class="alert alert-warning mt-3" role="alert" *ngIf="albums.length === 0">
+        <h4 class="alert-heading">No Albums Available</h4>
+        <p>There are currently no albums to show.</p>
+      </div>
     </div>
   </div>
 
-
-
-
-
-  <!-- Modal -->
+  <!-- Loading Spinner -->
   <ng-template #loading>
     <div class="d-flex justify-content-center align-items-center">
       <div class="spinner-border text-success" role="status">
@@ -52,7 +51,6 @@
       </div>
     </div>
   </ng-template>
-
 
   <!-- Modal -->
   <div class="modal fade" id="albumModal" tabindex="-1" role="dialog" aria-labelledby="albumModalLabel"
@@ -66,14 +64,15 @@
           </button>
         </div>
         <div class="modal-body">
-          <!-- Include your AlbumDetailsComponent selector here -->
           <app-album-details [album]="selectedAlbum"></app-album-details>
         </div>
         <div class="modal-footer justify-content-center">
-          <button type="button" class="btn btn-secondary gold-hover" data-bs-dismiss="modal" disabled>Order this album</button>
-
+          <button type="button" class="btn btn-secondary gold-hover" data-bs-dismiss="modal" disabled>Order this
+            album</button>
         </div>
       </div>
     </div>
   </div>
+
+  
 </div>

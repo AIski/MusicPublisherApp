@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Album } from 'src/app/common/album';
 import { AlbumService } from 'src/app/service/album.service';
-import { AlbumDetailsComponent } from './album-details/album-details.component';
-
 
 
 @Component({
@@ -33,13 +31,7 @@ export class OfferComponent implements OnInit {
     }
   }
 
-  // openModal(album: Album) {
-  //   const modalRef = this.modalService.open(AlbumDetailsComponent, { size: 'md' });
-  //   modalRef.componentInstance.album = album;
-  // }
-
   openModal(album: Album) {
-    console.log(album.name)
     this.selectedAlbum = album;
   }
 

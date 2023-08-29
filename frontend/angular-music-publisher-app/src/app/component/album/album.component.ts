@@ -54,7 +54,7 @@ export class AlbumComponent implements OnInit {
         const response = await this.albumService.createAlbum(albumCreationRequest);
         if (response.status === 200) {
           this.successMessage = 'Album saved to database successfully.';
-          this.albumForm.reset();
+          this.createAlbumForm(); //reset albumForm with 1 songs inside
           this.submitted = false;
         }
       } catch (error) {

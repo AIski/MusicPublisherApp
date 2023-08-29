@@ -2,11 +2,17 @@ package pl.aIski.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @Table(name = "ARTIST")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +29,7 @@ public class Artist {
     private String musicType;
 
     @Column(name="AGE")
-    private int Age;
+    private int age;
 
     @ManyToOne
     @JoinColumn(name = "COUNTRY_ID")

@@ -1,14 +1,20 @@
 <body>
   <div *ngIf="displayComponent; else loading">
+    <!-- Album Title -->
     <div class="album-details-container">
       <h3 class="album-title">{{ album!.name! }}</h3>
+      <!-- Songs  -->
       <p class="album-info">Song list:</p>
       <div *ngFor="let song of album.songs; let i = index" class="song-container">
+
+        <!-- Song Details -->
         <div class="song-details">
           <p class="song-title">Song {{ i + 1 }}: <i>{{ song.name }}</i></p>
           <div class="artists-container">
+            <!-- Song Artists -->
             <h6 class="artists-title">Artists:</h6>
             <div *ngFor="let tempArtist of song.artists" class="artist">
+              <!-- Single Artist Details -->
               <p><b>{{tempArtist.firstName}} {{tempArtist.lastName}}</b>, {{tempArtist.countryName}},
                 {{tempArtist.age}}, <b>{{tempArtist.musicType}}</b></p>
             </div>
@@ -16,6 +22,7 @@
         </div>
       </div>
 
+      <!-- Album Price -->
       <div class="pt-3">
         <p class="album-price">Suggested Price: {{ album!.suggestedPrice! }}</p>
       </div>
@@ -29,6 +36,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
+ <!-- Loading Spinner -->
 <ng-template #loading>
   <div class="d-flex justify-content-center align-items-center">
     <div class="spinner-border text-success" role="status">

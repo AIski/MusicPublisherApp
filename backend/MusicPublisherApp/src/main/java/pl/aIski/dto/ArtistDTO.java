@@ -8,6 +8,7 @@ public class ArtistDTO {
     private String firstName;
     private String lastName;
     private String musicType;
-    private int Age;
+    private int age;
     private String countryName;
 }
+

@@ -7,7 +7,6 @@ import pl.aIski.dao.ArtistRepository;
 import pl.aIski.dto.ArtistCreationRequest;
 import pl.aIski.entity.Artist;
 import pl.aIski.entity.Country;
-import pl.aIski.mapper.ArtistMapper;
 
 import java.util.Comparator;
 import java.util.List;
@@ -16,16 +15,14 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class ArtistServiceImpl implements  ArtistService{
+public class ArtistServiceImpl implements ArtistService {
     private final ArtistRepository artistRepository;
-    private final ArtistMapper mapper;
 
     @Override
     public List<Artist> getAll() {
-
         log.info("Getting All Artists from the DB.");
         var artists = artistRepository.findAll();
-        List<Artist> sortedArtists= artists.stream()
+        List<Artist> sortedArtists = artists.stream()
                 .sorted(Comparator.comparing(Artist::getFirstName))
                 .collect(Collectors.toList());
         return sortedArtists;
@@ -33,10 +30,10 @@ public class ArtistServiceImpl implements  ArtistService{
 
     @Override
     public Artist createArtist(ArtistCreationRequest artistCreationRequest) {
-        log.info("Creating new artist from artistCreationRequest: "+artistCreationRequest.toString());
+        log.info("Creating new artist from artistCreationRequest: " + artistCreationRequest.toString());
         Artist artist = new Artist();
         fetchArtistDetailsFromRequest(artistCreationRequest, artist);
-        log.info("Creating artist: "+ artist.toString());
+        log.info("Creating artist: " + artist.toString());
         artistRepository.save(artist);
         log.info("Saved artist to the DB.");
         return artist;
@@ -53,6 +50,7 @@ public class ArtistServiceImpl implements  ArtistService{
     private void fetchCountryIdFromRequest(ArtistCreationRequest artistCreationRequest, Artist artist) {
         Country country = new Country();
         country.setId(artistCreationRequest.getCountry().getId());
+        country.setName(artistCreationRequest.getCountry().getName());
         artist.setCountry(country);
     }
 }
